@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 import ca.ualberta.ssrg.androidelasticsearch.R;
@@ -39,6 +40,19 @@ public class MainActivity extends Activity {
 		moviesViewAdapter = new ArrayAdapter<Movie>(this, R.layout.list_item,movies);
 		movieList.setAdapter(moviesViewAdapter);
 		movieManager = new ESMovieManager("");
+
+		findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				EditText mEdit  = (EditText)findViewById(R.id.editText1);
+				String input = mEdit.getText().toString();
+
+				SearchThread thread = new SearchThread(input);
+
+				thread.start();
+			}
+		});
+
 
 		// Show details when click on a movie
 		movieList.setOnItemClickListener(new OnItemClickListener() {
